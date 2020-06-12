@@ -140,7 +140,7 @@ print(calculateTotalDays(d1, d2))
 
 
 ###########################################
-from WaleedSumanthDateTester import *
+from ___ import *
 
 ####all test cases in order of rubric
 #Two dates within the same month
