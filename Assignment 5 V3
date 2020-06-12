@@ -1,17 +1,18 @@
+
 from math import *
 
-d1 = "Mar 13 2003"
-d2 = "Nov 24 2024"
+#d1 = "Jan 01 2018"
+#d2 = "Feb 14 2018"
 
 names=["Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-length=[31,   28,     31,   30,   31,    30,   31,   31,   30,   31,   30,   31]
+length=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-# Gets day from final month 
+# Gets date of the final month
 def getDayFromDate(d2):
-     day=d2[4:6]
-     return int(d2)
+     day=d2[4:6]33
+     return int(day)
 
-# Gets the month from the date
+# Gets the month of the date
 def getMonthFromDate(date):
     month=date[0:3]
     return month
@@ -20,14 +21,8 @@ def getMonthFromDate(date):
 def getYearFromDate(date):
     year=date[7:]
     return int(year)
-
-# Matches the names of the months and lengths of each month
-def getLengthOfMonth(monthName):
-     mn=names.index(monthName)
-     l=length[mn]
-     return l
-    
-# Checks if the year is a leap year
+   
+# Checks if the year is a leapyear
 def isLeapYear(year):
     if year %4==0:
         if year %100!=0:
@@ -40,29 +35,127 @@ def isLeapYear(year):
     else:
         return False
 
-# Calculates the days in between the 2 months
+# Calculates number of days from the start of (month1 + 1) to the start of month2
 def calculateDaysBetweenMonths(month1, month2):
     daysum=0
-    current = names.index(month1)
-    while current!=names.index(month2):
+    current = (month1+1)%12
+    while current!=month2:
         daysum = daysum + length[current]
         current = (current+1)%12
     return daysum
-  
-def daysLeftInMonth(days,monthName):
-    return getLengthOfMonth(monthName) - days
 
+# Calculates remaining days in the month
+def daysLeftInMonth(days,monthName):
+    daysLeft = length[monthName] - days
+    if (daysLeft == -1):
+         daysLeft = 0 # Only for Feb 29
+    return daysLeft
+
+# Calculates number of days from the start of (year1 + 1) to the start of year2
+
+def calculateDaysBetweenYears(y1, y2):
+    daysum = 0
+    while (y1+1 != y2):
+        if (isLeapYear(y1+1)):
+            daysum = daysum+366
+        else:
+            daysum = daysum+365
+        y1 =y1 + 1
+    return daysum
+
+def calculateDaysLeftInYear1(day, month, year):
+    daysum = 0
+    daysum = daysum + calculateDaysBetweenMonths(month, 0) # Between current month and january
+    daysum = daysum + daysLeftInMonth(day, month)
+    if (month <= 1 and isLeapYear(year)): 
+daysum = daysum + 1 # If date is before february and it's a leap year
+    return daysum
+
+def DateComesFirst(d1, d2):
+    m1 = names.index(getMonthFromDate(d1))
+    m2 = names.index(getMonthFromDate(d2))
+    day1 = getDayFromDate(d1)
+    day2 = getDayFromDate(d2)
+    y1 = getYearFromDate(d1)
+    y2 = getYearFromDate(d2)
+    if y1>y2:
+        return d2
+    elif y2>y1:
+        return d1
+    else:
+        if m1>m2:
+            return d2
+        elif m2>m1:
+            return d1
+        else:
+            if day1>day2:
+                return d2
+            elif day2>day1:
+                return d1
+            else:
+                return d1
+        
 def calculateTotalDays(d1, d2):
-    month1 = getMonthFromDate(d1)
-    month2 = getMonthFromDate(d2)
-    daysLeftInMonth1 = daysLeftInMonth(days, monthName)
-    daysIntoMonth2 = getDayFromDate(d2)
-    daysBetweenMonths = calculateDaysBetweenMonths(month1, month2)
-##   if isLeapYear == True:
-##   daysBetweenMonths = daysBetweenMonths + 1
-    return daysLeftInMonth1 + daysBetweenMonths + daysIntoMonth2
-	
-print(calculateTotalDays(date1, date2))
+
+    DateC = DateComesFirst(d1, d2)
+    if DateC == d2:
+        temp = d1
+        d1=d2
+        d2=temp
+    m1 = names.index(getMonthFromDate(d1))
+    m2 = names.index(getMonthFromDate(d2))
+    day1 = getDayFromDate(d1)
+    day2 = getDayFromDate(d2)
+    y1 = getYearFromDate(d1)
+    y2 = getYearFromDate(d2)
+    
+    if (y1 == y2):
+
+        if (m1 == m2):
+            return day2 - day1
+
+        else:
+            daysBetweenMonths = calculateDaysBetweenMonths(m1, m2)
+            if (isLeapYear(y1) and m1 < 1 and m2 > 1): daysBetweenMonths =daysBetweenMonths + 1
+            daysLeftInMonth1 = daysLeftInMonth(day1, m1)
+            return daysLeftInMonth1 + daysBetweenMonths + day2
+    
+    # If different years
+    else:
+        daysBetweenYears = calculateDaysBetweenYears(y1, y2)
+        daysLeftInYear1 = calculateDaysLeftInYear1(day1, m1, y1)
+        daysIntoYear2 = calculateDaysBetweenMonths(11, m2) + day2 # Start of January to date2
+
+        if m2 >= 2:
+            daysIntoYear2+=1
+        return daysLeftInYear1 + daysBetweenYears + daysIntoYear2
+
+#print(calculateTotalDays(d1, d2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
