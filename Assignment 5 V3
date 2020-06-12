@@ -1,0 +1,69 @@
+from math import *
+
+d1 = "Mar 13 2003"
+d2 = "Nov 24 2024"
+
+names=["Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+length=[31,   28,     31,   30,   31,    30,   31,   31,   30,   31,   30,   31]
+
+# Gets day from final month 
+def getDayFromDate(d2):
+     day=d2[4:6]
+     return int(d2)
+
+# Gets the month from the date
+def getMonthFromDate(date):
+    month=date[0:3]
+    return month
+
+# Gets the year from the date
+def getYearFromDate(date):
+    year=date[7:]
+    return int(year)
+
+# Matches the names of the months and lengths of each month
+def getLengthOfMonth(monthName):
+     mn=names.index(monthName)
+     l=length[mn]
+     return l
+    
+# Checks if the year is a leap year
+def isLeapYear(year):
+    if year %4==0:
+        if year %100!=0:
+            return True
+        else:
+            if year %400==0:
+                return True
+            else:
+                return False
+    else:
+        return False
+
+# Calculates the days in between the 2 months
+def calculateDaysBetweenMonths(month1, month2):
+    daysum=0
+    current = names.index(month1)
+    while current!=names.index(month2):
+        daysum = daysum + length[current]
+        current = (current+1)%12
+    return daysum
+  
+def daysLeftInMonth(days,monthName):
+    return getLengthOfMonth(monthName) - days
+
+def calculateTotalDays(d1, d2):
+    month1 = getMonthFromDate(d1)
+    month2 = getMonthFromDate(d2)
+    daysLeftInMonth1 = daysLeftInMonth(days, monthName)
+    daysIntoMonth2 = getDayFromDate(d2)
+    daysBetweenMonths = calculateDaysBetweenMonths(month1, month2)
+##   if isLeapYear == True:
+##   daysBetweenMonths = daysBetweenMonths + 1
+    return daysLeftInMonth1 + daysBetweenMonths + daysIntoMonth2
+	
+print(calculateTotalDays(date1, date2))
+
+
+
+
