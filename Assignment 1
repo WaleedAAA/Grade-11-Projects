@@ -1,0 +1,98 @@
+from math import*
+
+while 1==1:
+
+    print()
+    print()
+    print()
+    print("I Bring You Waleeds Quadrilateral Classifier")    
+    print()
+    print("To plot the points keep in mind")
+    print()
+    print("x1,y1 Represents The Top Right Point")
+    print("x4,y4 Represents The Bottom Right Point")
+    print()
+    print("x2,y2 Represents The Top Left Point")
+    print("x3,y3 Represents The Bottom Left Point")
+    print()
+    print("Enter the numbers down below to the Corresponding x,y Value")
+    print()
+    print()
+
+    print("Top Right")
+    x1= int(input("Enter x1: "))
+    y1= int(input("Enter y1: "))
+    print()
+    print("Bottom Right")
+    x2= int(input("Enter x4: "))
+    y2= int(input("Enter y4: "))
+    print()
+    print("Top Left")
+    x3= int(input("Enter x2: "))
+    y3= int(input("Enter y2: "))
+    print()
+    print("Bottom Left")
+    x4= int(input("Enter x3: "))
+    y4= int(input("Enter y3: "))
+    
+    
+    lengthA= sqrt((x2-x1)**2+(y2-y1)**2)
+    lengthB= sqrt((x3-x2)**2+(y3-y2)**2)
+    lengthC= sqrt((x4-x3)**2+(y4-y3)**2)
+    lengthD= sqrt((x1-x4)**2+(y1-y4)**2)
+    
+    if x1==x2:
+        slopeA= "Undefined"
+    else:
+        slopeA= (y2-y1)/(x2-x1)
+
+    if x2==x3:
+        slopeB = "Undefined"
+    else:
+        slopeB= (y3-y2)/(x3-x2)
+
+    if x3==x4:
+        slopeC= "Undefined"
+    else:
+        slopeC= (y4-y3)/(x4-x3)
+
+    if x4==x1:
+        slopeD= "Undefined"
+    else:
+        slopeD= (y1-y4)/(x1-x4)
+
+    if lengthA==lengthB==lengthC==lengthD:
+        print()
+        print("Your shape is a Square")
+
+        if lengthA==lengthC and lengthA != lengthB and lengthB==lengthD and lengthA>lengthB:
+            print()
+            print("Your Shape is a Rectangle")
+
+            if lengthA==lengthC and lengthC>lengthB and slopeA==slopeC:
+                print()
+                print("Your Shape is a Parallelogram")
+        
+                if lengthA==lengthB==lengthC==lengthD and slopeA != slopeB and slopeB==slopeD:
+                    print()
+                    print("Your Shape is a Rhombus")
+
+                if lengthA==lengthC and lengthB==lengthD and slopeA==slopeC and slopeB==slopeD:
+                    print()
+                    print("Your Shape is a Kite")
+
+            if lengthA==lengthD and lengthD==lengthC and slopeA==slopeC and slopeB==slopeD:
+                print()
+                print("Your Shape is a Kite")
+
+        if slopeA==slopeC and lengthC>lengthA:
+            print()
+            print("Your Shape is a Trapezoid")
+    
+    else:
+        print("This a BORING Irregular Quadrilateral")
+
+    
+
+
+
