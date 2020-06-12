@@ -1,0 +1,316 @@
+########### Waleed Asif
+########### Novemeber 10, 2019
+########### ICS 3UI
+
+from tkinter import *
+from time import *
+from math import*
+from random import*
+
+myInterface = Tk()
+screen = Canvas(myInterface, width=1000, height=800, background="burlywood")
+screen.pack()
+
+#Empty Arrays
+xsmoke = []
+ysmoke = []
+Nsize = []
+xspeed = []
+yspeed = []
+smokeNum = 150
+smoke = []
+
+#Empty Arrays
+xWater = 500
+yWater = 395
+size = []
+xSpeed = []
+ySpeed = 0
+waterNum = 500
+water = []
+
+#intro
+I = screen.create_rectangle(0, 0, 1000, 800, fill="black")
+II = screen.create_text(500, 300, fill="white", font="arial 15 italic bold", text="After Just Setting up my $2000 T.V This happened...")
+screen.update()
+sleep(3)
+screen.delete(I, II)
+
+
+#plug(1)
+screen.create_rectangle(250, 400, 270, 440, fill="white", outline="white" )
+screen.create_rectangle(280, 400, 300, 440, fill="white", outline="white" )
+screen.create_line(255, 405, 255, 415, fill="black", width="2")
+screen.create_line(265, 405, 265, 415, fill="black", width="2")
+screen.create_line(255, 425, 255, 435, fill="black", width="2")
+screen.create_line(265, 425, 265, 435, fill="black", width="2")
+
+#plug(2)
+screen.create_line(285, 405, 285, 415, fill="black", width="2")
+screen.create_line(295, 405, 295, 415, fill="black", width="2")
+screen.create_line(285, 425, 285, 435, fill="black", width="2")
+screen.create_line(295, 425, 295, 435, fill="black", width="2")
+
+#Plug outline
+screen.create_rectangle(250, 400, 270, 440, outline="grey75", fill="black", width="2")
+screen.create_rectangle(250, 420, 270, 450, outline="grey75", fill="black", width="2")
+
+#wire
+screen.create_line(400, 300, 260, 415, fill="black", width ="3")
+screen.create_line(400, 300, 260, 435, fill="black", width ="3")
+
+#window  
+screen.create_rectangle(200, 150, 300, 350, outline = "white", fill="skyblue", width="6")
+screen.create_rectangle(700, 150, 800, 350 , outline = "white", fill="skyblue", width="6")
+
+#clouds Left window
+for b in range (40):
+    Sx = randint (220, 270)
+    Sy = randint (170, 230)
+    Sxy = randint (200, 280)
+    Syx = randint (290, 310)
+    screen.create_oval(Sx, Sy, Sx+20, Sy+20, fill = "snow", outline = "snow")
+    screen.create_oval(Sxy, Syx, Sxy+20, Syx+20, fill = "snow", outline = "snow")
+
+#clouds right window
+for b in range (40):
+    Sx = randint (720, 770)
+    Sy = randint (170, 230)
+    Sxy = randint (700, 780)
+    Syx = randint (290, 310)
+    
+    screen.create_oval(Sx, Sy, Sx+20, Sy+20, fill = "snow", outline = "snow")
+    screen.create_oval(Sxy, Syx, Sxy+20, Syx+20, fill = "snow", outline = "snow")
+
+    
+#Sun
+s1 = randint(200, 260)
+ss1 = randint(200, 200)
+
+s2 = s1 + 25
+ss2 = ss1 + 30
+
+screen.create_oval( s1, ss1, s2, ss2, outline = "orange", fill = "yellow", width = 2)
+
+#Window frame
+screen.create_line(250, 150, 250, 350 ,fill="white", width="6")
+screen.create_line(200, 250, 300, 250, fill="white", width="6")
+screen.create_line(750, 150, 750, 350, fill="white", width="6")
+screen.create_line(700, 250, 800, 250,fill="white", width="6")
+    
+#Tv
+screen.create_rectangle(325, 150, 675, 350, outline="grey", fill="black", width="10")
+screen.create_text(363, 170, fill="white", font="helvetica 15 bold", text="SONY")
+screen.create_rectangle(610, 165, 660, 210, outline = "yellow", fill="black", width="4")
+screen.create_text(635, 175, fill="yellow", font="helvetica 10 bold", text="4K")
+screen.create_text(635, 195, fill="yellow", font="helvetica 10 bold", text="HDR")
+screen.create_text(635, 220, fill="white", font="helvetica 10 bold", text="ULTRA HD")
+
+#Room outline(3D)
+screen.create_polygon(180, 500, 820, 500, 1000, 800, 0, 800,  fill="burlywood", outline="black", width ="2")
+screen.create_line(0, 0, 180, 100, fill = "black", width="2")
+screen.create_line(1000, 0, 820, 100, fill = "black", width="2")
+screen.create_line(820, 100, 820, 500, fill = "black", width="2")
+screen.create_line(180, 100, 820, 100, fill = "black", width="2")
+screen.create_line(180, 100, 180, 500, fill = "black", width="2")
+
+#Carpet code
+colours=["lemonchiffon", "moccasin", "navajowhite", "brown", "blanchedalmond", "wheat", "burlywood"]
+for i in range(10000):
+   C1 = randint(200, 800)
+   C2 = randint(550, 800)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+   
+for i in range(100):
+   C1 = randint(800, 825)
+   C2 = randint(600, 650)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+
+for i in range(100):
+   C1 = randint(800, 825)
+   C2 = randint(600, 650)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+
+for i in range(100):
+   C1 = randint(800, 850)
+   C2 = randint(650, 700)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+
+for i in range(100):
+   C1 = randint(800, 875)
+   C2 = randint(700, 750)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2) 
+
+for i in range(100):
+   C1 = randint(175, 200)
+   C2 = randint(600, 650)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+
+for i in range(100):
+   C1 = randint(150, 200)
+   C2 = randint(650, 700)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+
+for i in range(100):
+   C1 = randint(125, 200)
+   C2 = randint(700, 750)
+   c = choice(colours)
+   screen.create_line(C1, C2, C1+4, C2+6, fill=c, width=2)
+   
+#Picture frame
+screen.create_polygon(50, 125, 50, 325, 150, 300, 150, 150, fill="white", outline="black", width=6)
+screen.create_polygon(850, 150, 850, 300, 950, 325, 950, 125, fill="white", outline="black", width=6)
+
+#Randomized left picture
+colours=["red", "pink", "blue", "green", "purple", "orange", "yellow"]
+for i in range(40):
+   c1 = uniform(60, 130)
+   c2 = uniform(150, 275)
+   C = choice(colours)
+   screen.create_oval(c1, c2, c1+15, c2+15, fill=C, outline=C)
+   
+#Randomized Right picture 
+colours=["red", "pink", "blue", "green", "purple", "orange", "yellow"]
+for i in range(500):
+   c1 = uniform(860, 920)
+   c2 = uniform(150, 285)
+   C = choice(colours)
+   screen.create_line(c1, c2, c1+20, c2+20, fill=C)
+   
+#To make fire appear not right away
+screen.update()
+sleep(1)
+
+#fire
+for b in range (40):
+    Fx = randint (200, 350)
+    Fy = randint (350, 400)
+    
+    fire = screen.create_oval(Fx, Fy, Fx+30, Fy+30, fill = "orangered", outline = "orangered")
+    screen.update()
+    sleep(0.03)
+
+#Fill Arrays Append
+for i in range (smokeNum):
+    xsmoke.append(uniform(200, 350))
+    ysmoke.append(uniform(350, 400))
+    Nsize.append(uniform(5, 10))
+    xspeed.append(uniform(0.5, 0.5))
+    yspeed.append(uniform(-7, -12))
+    smoke.append(0)
+ 
+#making smoke
+for f in range (100):
+    
+    for i in range (smokeNum):
+        
+       smoke[i]=screen.create_oval(xsmoke[i], ysmoke[i], xsmoke[i]+ Nsize[i], ysmoke[i] + Nsize[i], fill="gray", outline="gray")
+       
+       xsmoke[i]=xsmoke[i]+xspeed[i]
+       ysmoke[i]=ysmoke[i]+yspeed[i]
+    
+    screen.update()
+    sleep(0.03)
+
+    for i in range (smokeNum):
+        screen.update()
+        sleep(0)
+        screen.delete(smoke[i])        
+#Person
+#Face
+screen.create_oval(650, 300, 725, 375,  fill ="peachpuff", outline="peachpuff")
+screen.create_oval(670, 325, 680, 330,  fill ="sienna", outline="black")
+screen.create_oval(690, 325, 700, 330,  fill ="sienna", outline="black")
+screen.create_line(675, 355, 695, 355, fill="black")
+
+#legs
+screen.create_rectangle(660, 450, 685, 575, outline = "black",fill="black")
+screen.create_rectangle(690, 450, 715, 575, outline = "black",fill="black")
+
+#body
+screen.create_oval(640, 375, 740, 500, fill ="gray", outline="gray")
+
+#arms
+screen.create_rectangle(650, 420, 550, 400, fill="gray", outline="gray")
+screen.create_line(700, 400, 770, 500, fill="gray", width ="23")
+
+#shoes
+screen.create_oval(645, 575, 690, 600, fill ="salmon", outline="black")
+screen.create_oval(675, 575, 720, 600, fill ="salmon", outline="black")
+
+#hands
+screen.create_oval(530, 390, 570, 435, fill ="peachpuff", outline="peachpuff")
+screen.create_oval(750, 475, 790, 520, fill ="peachpuff", outline="peachpuff")
+
+#nose
+screen.create_oval(683, 340, 687, 345, fill="peachpuff", outline ="black")
+
+#hair
+for h in range(100):
+    hx1 = randint(295, 310)
+    hy1 = randint(670, 700)
+
+    hx1 = hx1 + 1
+    hy1 = hy1 + 1
+
+    screen.create_line( hy1, hx1, hy1+1, hx1+10, fill="goldenrod")
+    
+#gun
+screen.create_line(500, 400, 560, 400, fill="black",  width ="8")
+screen.create_line(550, 400, 550, 425, fill="black", width ="10")
+screen.update()
+sleep(1)
+      
+#Fill Arrays Append
+for i in range (waterNum):
+    size.append(uniform(5, 10))
+    xSpeed.append(uniform(-5, -10))
+    water.append(0)
+ 
+#making water
+for f in range (1):
+    
+    for i in range (waterNum):
+        
+       if xWater>350:
+          smoke[i]=screen.create_line(xWater, yWater, xWater+ size[i], yWater + size[i], fill="blue")
+       
+
+          xWater=xWater+xSpeed[i]+1
+          yWater=yWater+ySpeed
+
+          screen.update()
+          sleep(0.03)
+
+#outro
+C = screen.create_rectangle(0, 0, 1000, 800, fill="black")
+C1 = screen.create_text(500, 400, fill="white", font="arial 25 italic bold", text="MY TV WAS TOAST :( ")
+screen.update
+sleep(3)
+
+##spacing = 50
+##
+##for x in range(0, 1000, spacing): 
+##    screen.create_line(x, 25, x, 1000, fill="blue")
+##    screen.create_text(x, 5, text=str(x), font="Times 9", anchor = N)
+##
+##for y in range(0, 1000, spacing):
+##    screen.create_line(25, y, 1000, y, fill="blue")
+##    screen.create_text(5, y, text=str(y), font="Times 9", anchor = W)
+##
+##screen.update()
+
+
+
+
+
+
+
+
