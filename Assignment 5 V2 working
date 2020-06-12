@@ -1,0 +1,183 @@
+from math import *
+
+d1 = "Jan 14 2017"
+d2 = "Jan 26 2017"
+
+names=["Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+length=[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+# Gets date of the final month
+def getDayFromDate(d2):
+     day=d2[4:6]
+     return int(day)
+
+# Gets the month of the date
+def getMonthFromDate(date):
+    month=date[0:3]
+    return month
+
+# Gets the year from the date
+def getYearFromDate(date):
+    year=date[7:]
+    return int(year)
+   
+# Checks if the year is a leapyear
+def isLeapYear(year):
+    if year %4==0:
+        if year %100!=0:
+            return True
+        else:
+            if year %400==0:
+                return True
+            else:
+                return False
+    else:
+        return False
+
+# Calculates number of days from the start of (month1 + 1) to the start of month2
+def calculateDaysBetweenMonths(month1, month2):
+    daysum=0
+    current = (month1+1)%12
+    while current!=month2:
+        daysum = daysum + length[current]
+        current = (current+1)%12
+    return daysum
+
+# Calculates remaining days in the month
+def daysLeftInMonth(days,monthName):
+    daysLeft = length[monthName] - days
+    if (daysLeft == -1):
+         daysLeft = 0 # Only for Feb 29
+    return daysLeft
+
+# Calculates number of days from the start of (year1 + 1) to the start of year2
+
+def calculateDaysBetweenYears(y1, y2):
+    daysum = 0
+    while (y1+1 != y2):
+        if (isLeapYear(y1+1)):
+            daysum = daysum+366
+        else:
+            daysum = daysum+365
+        y1 =y1 + 1
+    return daysum
+
+# Calculates the number of days left in year
+def calculateDaysLeftInYear1(day, month, year):
+    daysum = 0
+    daysum = daysum + calculateDaysBetweenMonths(month, 0) # Between current month and january
+    daysum = daysum + daysLeftInMonth(day, month)
+    if (month <= 1 and isLeapYear(year)): 
+        daysum = daysum + 1 # If date is before february and it's a leap year
+    return daysum
+
+# Checks the year and makes sure it doesnt matter if year 2 is bigger then year 1
+def DateComesFirst(d1, d2):
+    m1 = names.index(getMonthFromDate(d1))
+    m2 = names.index(getMonthFromDate(d2))
+    day1 = getDayFromDate(d1)
+    day2 = getDayFromDate(d2)
+    y1 = getYearFromDate(d1)
+    y2 = getYearFromDate(d2)
+    if y1>y2:
+        return d2
+    elif y2>y1:
+        return d1
+    else:
+        if m1>m2:
+            return d2
+        elif m2>m1:
+            return d1
+        else:
+            if day1>day2:
+                return d2
+            elif day2>day1:
+                return d1
+            else:
+                return d1
+        
+# calculates total number of days between two dates
+def calculateTotalDays(d1, d2):
+
+    # Getting date, month, and year values
+    DateC = DateComesFirst(d1, d2)
+    if DateC == d2:
+        temp = d1
+        d1=d2
+        d2=temp
+    m1 = names.index(getMonthFromDate(d1))
+    m2 = names.index(getMonthFromDate(d2))
+    day1 = getDayFromDate(d1)
+    day2 = getDayFromDate(d2)
+    y1 = getYearFromDate(d1)
+    y2 = getYearFromDate(d2)
+    
+    # If same years
+    if (y1 == y2):
+
+        # If same month
+        if (m1 == m2):
+            return day2 - day1
+
+        # If different months
+        else:
+            daysBetweenMonths = calculateDaysBetweenMonths(m1, m2)
+            if (isLeapYear(y1) and m1 < 1 and m2 > 1): 
+daysBetweenMonths = daysBetweenMonths + 1
+            daysLeftInMonth1 = daysLeftInMonth(day1, m1)
+            return daysLeftInMonth1 + daysBetweenMonths + day2
+    
+    # If different years
+    else:
+        daysBetweenYears = calculateDaysBetweenYears(y1, y2)
+        daysLeftInYear1 = calculateDaysLeftInYear1(day1, m1, y1)
+        daysIntoYear2 = calculateDaysBetweenMonths(11, m2) + day2 # Start of January to date2
+        
+        return daysLeftInYear1 + daysBetweenYears + daysIntoYear2
+
+print(calculateTotalDays(d1, d2))
+
+
+
+###########################################
+from WaleedSumanthDateTester import *
+
+####all test cases in order of rubric
+#Two dates within the same month
+d1="Jan 09 2019"
+d2="Jan 19 2019"
+
+#Two dates one month apart
+d3="Jan 01 2019"
+d4="Feb 01 2019"
+
+#Two dates more than 1 month apart but within the same year
+d5="Jan 09 2015"
+d6="May 20 2015"
+
+#Two dates in different years but less than 365 days apart
+d7="Sep 14 2019"
+d8="Jan 29 2020"
+
+#Calculates the right answer regardless of which date is earlier
+d9="Oct 25 2019"
+d10="Jan 06 2019"
+
+#Two dates more than 2 years apart
+d11="Nov 24 2017"
+d12="Nov 26 2019"
+
+#100 year rule
+d13="Jan 02 2019"
+d14="Sep 12 2120"
+
+#leapyear
+d15="Jan 03 2020"
+d16="Mar 12 2020"
+
+testCases=([d1,d2],[d3,d4],[d5,d6],[d7,d8],[d9,d10],[d11,d12],[d13,d14],[d15,d16] )
+
+for t in(testCases):
+    print("The number of days between",t[0],"and",t[1],"is",calculateTotalDays(t[0],t[1]))
+
+
